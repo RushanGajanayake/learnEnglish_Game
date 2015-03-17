@@ -7,7 +7,7 @@ ABC.Game = function(game)
 	this.frontStyle = null;
 
 	this.candyspeed = 350;
-	this.letterSpeed = 305;
+	this.letterSpeed = 325;
 	this.bonusTimer = 0;
 
 	ABC._scoreText = null;
@@ -26,6 +26,7 @@ ABC.Game = function(game)
 
 
 	this.letterPos = [];
+	this.shuffleLetter = [];
 	
 
 };
@@ -80,16 +81,17 @@ ABC.Game.prototype = {
 
 				}
 
-				var extraWord = Math.floor(Math.random()*26);
-				this.letterPos.push(extraWord);
+				// var extraWord = Math.floor(Math.random()*26);
+				// this.letterPos.push(extraWord);
 			};		
 
+		this.shuffle(this);
 
-
-		this.lengthOfArray = this.letterPos.length;
+		this.lengthOfArray = this.shuffleLetter.length;
 
 
 		this.spawnTimer = 0;
+		ABC._health = 3;
 
 
 		this.fontStyle = { font: "40px Arial", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
@@ -140,22 +142,22 @@ ABC.Game.prototype = {
 		var dropPosX = Math.floor(Math.random()*ABC.GAME_WIDTH);
 		var dropOffset = [300,200,150,250,150];
 		var dropPosY = Math.floor(Math.random()*5);
-		var candytype = Math.floor(Math.random()*this.lengthOfArray);
-		var candy = game.add.sprite(-10,dropOffset[dropPosY],'abcd1');
+		var lettertype = Math.floor(Math.random()*this.lengthOfArray);
+		var letter = game.add.sprite(-10,dropOffset[dropPosY],'abcd1');
 
-		candy.animations.add('anim', [this.letterPos[candytype]], 10, true);
-		candy.animations.play('anim');
+		letter.animations.add('anim', [this.shuffleLetter[lettertype]], 10, true);
+		letter.animations.play('anim');
 
-		game.physics.enable(candy, Phaser.Physics.ARCADE);
-		candy.inputEnabled = true;
-		candy.events.onInputDown.add(function(){this.clickLetter(candy,this.letterPos[candytype]);},this);
+		game.physics.enable(letter, Phaser.Physics.ARCADE);
+		letter.inputEnabled = true;
+		letter.events.onInputDown.add(function(){this.clickLetter(letter,this.shuffleLetter[lettertype]);},this);
 
-		candy.checkWorldBounds = true;
-		candy.events.onOutOfBounds.add(this.remover, this);
+		letter.checkWorldBounds = true;
+		letter.events.onOutOfBounds.add(this.remover, this);
 
 
-		candy.body.velocity.x = Math.cos(100) * game.letterSpeed;
-    	candy.body.velocity.y = Math.sin(100) * game.letterSpeed;
+		letter.body.velocity.x = Math.cos(100) * game.letterSpeed;
+    	letter.body.velocity.y = Math.sin(100) * game.letterSpeed;
 
 
 	},
@@ -182,13 +184,13 @@ ABC.Game.prototype = {
 
 	},
 
-	clickLetter: function(candy,candytype)
+	clickLetter: function(letter,lettertype)
 	{
 
-		this.game.add.tween(candy).to( { x: 50 }, 5000, Phaser.Easing.Linear.None, true);
-		candy.kill();
+		this.game.add.tween(letter).to( { x: 50 }, 5000, Phaser.Easing.Linear.None, true);
+		letter.kill();
 
-		switch(candytype)
+		switch(lettertype)
 		{
 			case 0: this.wrd = this.wrd + 'A'; break;
 			case 1: this.wrd = this.wrd + 'B'; break;
@@ -220,7 +222,13 @@ ABC.Game.prototype = {
 		}
 
 		var letters = this.add.sprite(((ABC.GAME_WIDTH-(this.lengthOfWord*80))/2)+ABC.counter, ABC.GAME_HEIGHT-130,'abcd1');
-		letters.frame = candytype;
+		letters.frame = lettertype;
+
+
+		if(this.letterPos.indexOf(lettertype) < 0)
+		{
+			alert("wrong letter");
+		}
 
 
 
@@ -236,9 +244,34 @@ ABC.Game.prototype = {
 
 	clickBonus: function(candy,candytype)
 	{
-		alert(candytype);
+		candy.kill();
+		// alert(candytype);
+		switch(candytype)
+		{
+			case 0: ABC._score += 5; break;
+			case 1: ABC._score -= 2; break;
+			case 2: ABC._score += 2; break;
+			case 3: ABC._score += 10; break;
+			case 4: ABC._score += 5; break;
+		}
+
+		ABC._scoreText.setText(ABC._score);
+
 	},
 
+	shuffle: function(game)
+	{
+		this.shuffleLetter = this.shuffleLetter.concat(this.letterPos);
+
+		for (var i = 0; i < this.letterPos.length; i++) {
+				var extraWord = Math.floor(Math.random()*26);
+				this.shuffleLetter.push(extraWord);
+		};
+
+		for(var j, x, i = this.shuffleLetter.length; i; j = Math.floor(Math.random() * i), x = this.shuffleLetter[--i], this.shuffleLetter[i] = this.shuffleLetter[j], this.shuffleLetter[j] = x);
+
+		// alert(this.shuffleLetter);
+	},
 
 	remover: function(item)
 	{
