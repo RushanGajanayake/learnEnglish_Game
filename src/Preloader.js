@@ -16,7 +16,7 @@ ABC.Preloader.prototype = {
         this.load.image('button-pause', 'assets/images/button-pause.png');
         this.load.image('floor', 'assets/images/floor.png');
 
-        this.load.spritesheet('bonus', 'assets/images/bonus.png', 80, 80);
+        this.load.spritesheet('bonus', 'assets/images/bonusCandy.png', 100, 100);
         this.load.spritesheet('button-start', 'assets/images/button-start.png', 401, 143);
         this.load.spritesheet('abcd', 'assets/images/alphabet.png', 100, 100);
         this.load.spritesheet('abcd1', 'assets/images/alphabet_letters1.png', 100, 100);

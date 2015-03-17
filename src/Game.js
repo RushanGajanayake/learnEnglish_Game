@@ -6,8 +6,8 @@ ABC.Game = function(game)
 	this.spawnTimer = 0;
 	this.frontStyle = null;
 
-	this.candyspeed = 450;
-	this.letterSpeed = 325;
+	this.candyspeed = 350;
+	this.letterSpeed = 305;
 	this.bonusTimer = 0;
 
 	ABC._scoreText = null;
@@ -25,7 +25,6 @@ ABC.Game = function(game)
 	ABC.counter = 0;
 
 
-	var abcdf = [];
 	this.letterPos = [];
 	
 
@@ -50,7 +49,6 @@ ABC.Game.prototype = {
 		
 
 		for (var i = 0; i < splitword.length; i++) {
-					// alert(splitword[i]);
 			switch(splitword[i])
 				{
 					case 'A': this.letterPos.push(0); break;
@@ -85,21 +83,10 @@ ABC.Game.prototype = {
 				var extraWord = Math.floor(Math.random()*26);
 				this.letterPos.push(extraWord);
 			};		
-		// alert(this.lertterPos);
+
 
 
 		this.lengthOfArray = this.letterPos.length;
-
-		this.abcdf = ['A','B','C','D','E'];
-		// this.abcdf = [
-
-		// 	letterA = this.game.add.sprite(0,'abcd'),
-		// 	letterB = this.game.add.sprite(1,'abcd'),
-		// 	letterC = this.game.add.sprite(2,'abcd'),
-		// 	letterD = this.game.add.sprite(3,'abcd'),
-		// 	letterE = this.game.add.sprite(4,'abcd')
-
-		// ];
 
 
 		this.spawnTimer = 0;
@@ -129,10 +116,9 @@ ABC.Game.prototype = {
 	{
 		this.spawnTimer += this.time.elapsed;
 		this.bonusTimer += this.time.elapsed;
-		// this.birdTime += this.time.elapsed;
 		
 
-		if(this.spawnTimer > 500)
+		if(this.spawnTimer > 800)
 		{
 			this.spawnTimer = 0;
 			this.spawnLetter(this);
@@ -142,7 +128,7 @@ ABC.Game.prototype = {
 			ABC.timeing.setText(ABC.sec);
 		}
 
-		if(this.bonusTimer >875)
+		if(this.bonusTimer > 5175)
 		{
 			this.bonusTimer = 0;
 			this.spawnBonus(this);
@@ -171,14 +157,13 @@ ABC.Game.prototype = {
 		candy.body.velocity.x = Math.cos(100) * game.letterSpeed;
     	candy.body.velocity.y = Math.sin(100) * game.letterSpeed;
 
-    	// candy.finalPositionX = 0;
 
 	},
 
 	spawnBonus: function(game)
 	{
 		var dropPosX = Math.floor(Math.random()*ABC.GAME_WIDTH);
-		var dropOffset = [140,250,175,225,150];
+		var dropOffset = [140,130,175,115,150];
 		var dropPosY = Math.floor(Math.random()*5);
 		var bonus = game.add.sprite(-5,dropOffset[dropPosY],'bonus');
 
@@ -187,21 +172,19 @@ ABC.Game.prototype = {
 
 		game.physics.enable(bonus, Phaser.Physics.ARCADE);
 		bonus.inputEnabled = true;
+		bonus.events.onInputDown.add(function(){this.clickBonus(bonus,dropPosY);},this);
 
 		bonus.checkWorldBounds = true;
 		bonus.events.onOutOfBounds.add(this.remover, this);
 
-		bonus.body.velocity.x = Math.cos(100) * game.candyspeed;
-    	bonus.body.velocity.y = Math.sin(100) * game.candyspeed;
+		bonus.body.velocity.x = Math.cos(0) * game.candyspeed;
+    	bonus.body.velocity.y = Math.sin(270) * game.candyspeed;
 
 	},
 
 	clickLetter: function(candy,candytype)
 	{
 
-		// alert(ev);
-		//this.candy.create(candytype);
-		// var s = this.game;
 		this.game.add.tween(candy).to( { x: 50 }, 5000, Phaser.Easing.Linear.None, true);
 		candy.kill();
 
@@ -235,10 +218,7 @@ ABC.Game.prototype = {
 			case 25: this.wrd = this.wrd + 'Z'; break;
 
 		}
-		// alert(ABC.counter);
 
-
-		// ABC.words.setText(this.wrd);
 		var letters = this.add.sprite(((ABC.GAME_WIDTH-(this.lengthOfWord*80))/2)+ABC.counter, ABC.GAME_HEIGHT-130,'abcd1');
 		letters.frame = candytype;
 
@@ -246,14 +226,17 @@ ABC.Game.prototype = {
 
 		ABC.counter += 80 ;
 
-		// this.add.text(100, 250, thi, this.fontStyle);
-		// alert(p1);
 		if(this.wrd===this.givenWord)
 		{
 			ABC.words.setText("You Win");
 			this.game.paused = true;
 
 		}
+	},
+
+	clickBonus: function(candy,candytype)
+	{
+		alert(candytype);
 	},
 
 
