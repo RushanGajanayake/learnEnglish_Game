@@ -135,6 +135,14 @@ ABC.Game.prototype = {
 			this.bonusTimer = 0;
 			this.spawnBonus(this);
 		}
+
+		if (ABC._health==0)
+		{
+			ABC.words.setText("Game Over");
+			this.game.paused = true;
+
+		}
+
 	},
 
 	spawnLetter: function(game)
@@ -227,7 +235,8 @@ ABC.Game.prototype = {
 
 		if(this.letterPos.indexOf(lettertype) < 0)
 		{
-			alert("wrong letter");
+			ABC.words.setText("Wrong Letter");
+			ABC._health -= 1 ;
 		}
 
 
