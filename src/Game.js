@@ -37,13 +37,15 @@ ABC.Game.prototype = {
 	
 	create: function()
 	{
+		this.add.sprite(0,0,'background1');
+
 		this.physics.startSystem(Phaser.Physics.ARCADE);
 		this.physics.arcade.gravity.y = 150;
 
 
 		this.add.sprite(0,0,'background1');
 		this.add.button(500,5,'button-pause',this.managePause,this);
-		this.add.sprite(0, ABC.GAME_HEIGHT-160, 'floor');
+		// this.add.sprite(0, ABC.GAME_HEIGHT-160, 'floor');
 
 		var splitword = this.givenWord.split("");
 		this.lengthOfWord = splitword.length;
@@ -135,6 +137,14 @@ ABC.Game.prototype = {
 			this.bonusTimer = 0;
 			this.spawnBonus(this);
 		}
+
+		if (ABC._health==0)
+		{
+			ABC.words.setText("Game Over");
+			this.game.paused = true;
+
+		}
+
 	},
 
 	spawnLetter: function(game)
@@ -221,13 +231,14 @@ ABC.Game.prototype = {
 
 		}
 
-		var letters = this.add.sprite(((ABC.GAME_WIDTH-(this.lengthOfWord*80))/2)+ABC.counter, ABC.GAME_HEIGHT-130,'abcd1');
+		var letters = this.add.sprite(((ABC.GAME_WIDTH-(this.lengthOfWord*80))/2)+ABC.counter, ABC.GAME_HEIGHT-170,'abcd1');
 		letters.frame = lettertype;
 
 
 		if(this.letterPos.indexOf(lettertype) < 0)
 		{
-			alert("wrong letter");
+			ABC.words.setText("Wrong Letter");
+			ABC._health -= 1 ;
 		}
 
 
