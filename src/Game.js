@@ -44,11 +44,12 @@ ABC.Game.prototype = {
 
 
 		this.add.sprite(0,0,'background1');
-		this.add.sprite(650,100,'bonus',0);
-		this.add.sprite(650,200,'bonus',1);
-		this.add.sprite(650,300,'bonus',2);
-		this.add.sprite(650,400,'bonus',3);
-		this.add.sprite(650,500,'bonus',4);
+		this.add.sprite(675,30,'bonusMarks',0);
+		this.add.sprite(675,100,'bonusMarks',1);
+		this.add.sprite(675,170,'bonusMarks',2);
+		this.add.sprite(675,240,'bonusMarks',3);
+		this.add.sprite(675,310,'bonusMarks',4);
+
 		this.add.button(500,5,'button-pause',this.managePause,this);
 
 		// this.add.sprite(0, ABC.GAME_HEIGHT-160, 'floor');
