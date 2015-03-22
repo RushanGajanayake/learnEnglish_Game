@@ -51,6 +51,7 @@ ABC.Game.prototype = {
 		this.add.sprite(675,310,'bonusMarks',4);
 
 		this.add.button(500,5,'button-pause',this.managePause,this);
+		this.add.button(575,5,'button-play',this.managePause,this);
 
 		// this.add.sprite(0, ABC.GAME_HEIGHT-160, 'floor');
 
