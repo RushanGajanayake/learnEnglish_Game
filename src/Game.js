@@ -227,39 +227,6 @@ ABC.Game.prototype = {
 		this.game.add.tween(letter).to( { x: 50 }, 5000, Phaser.Easing.Linear.None, true);
 		letter.kill();
 
-		switch(lettertype)
-		{
-			case 0: this.wrd = this.wrd + 'A'; break;
-			case 1: this.wrd = this.wrd + 'B'; break;
-			case 2: this.wrd = this.wrd + 'C'; break;
-			case 3: this.wrd = this.wrd + 'D'; break;
-			case 4: this.wrd = this.wrd + 'E'; break;
-			case 5: this.wrd = this.wrd + 'F'; break;
-			case 6: this.wrd = this.wrd + 'G'; break;
-			case 7: this.wrd = this.wrd + 'H'; break;
-			case 8: this.wrd = this.wrd + 'I'; break;
-			case 9: this.wrd = this.wrd + 'J'; break;
-			case 10: this.wrd = this.wrd + 'K'; break;
-			case 11: this.wrd = this.wrd + 'L'; break;
-			case 12: this.wrd = this.wrd + 'M'; break;
-			case 13: this.wrd = this.wrd + 'N'; break;
-			case 14: this.wrd = this.wrd + 'O'; break;
-			case 15: this.wrd = this.wrd + 'P'; break;
-			case 16: this.wrd = this.wrd + 'Q'; break;
-			case 17: this.wrd = this.wrd + 'R'; break;
-			case 18: this.wrd = this.wrd + 'S'; break;
-			case 19: this.wrd = this.wrd + 'T'; break;
-			case 20: this.wrd = this.wrd + 'U'; break;
-			case 21: this.wrd = this.wrd + 'V'; break;
-			case 22: this.wrd = this.wrd + 'W'; break;
-			case 23: this.wrd = this.wrd + 'X'; break;
-			case 24: this.wrd = this.wrd + 'Y'; break;
-			case 25: this.wrd = this.wrd + 'Z'; break;
-
-		}
-
-		var letters = this.add.sprite(((ABC.GAME_WIDTH-(this.lengthOfWord*80))/2)+ABC.counter, ABC.GAME_HEIGHT-170,'abcd1');
-		letters.frame = lettertype;
 
 
 		if(this.letterPos.indexOf(lettertype) < 0)
@@ -268,11 +235,53 @@ ABC.Game.prototype = {
 			var worngText = ABC.words.setText("Wrong Letter");
 			ABC._health -= 1 ;
 
+		}
+		else if(this.letterPos[ABC.counter]!=lettertype)
+		{
+			var worngText = ABC.words.setText("Wrong Letter");
+			ABC._health -= 1 ;
+		}
+		else
+		{
+			switch(lettertype)
+			{
+				case 0: this.wrd = this.wrd + 'A'; break;
+				case 1: this.wrd = this.wrd + 'B'; break;
+				case 2: this.wrd = this.wrd + 'C'; break;
+				case 3: this.wrd = this.wrd + 'D'; break;
+				case 4: this.wrd = this.wrd + 'E'; break;
+				case 5: this.wrd = this.wrd + 'F'; break;
+				case 6: this.wrd = this.wrd + 'G'; break;
+				case 7: this.wrd = this.wrd + 'H'; break;
+				case 8: this.wrd = this.wrd + 'I'; break;
+				case 9: this.wrd = this.wrd + 'J'; break;
+				case 10: this.wrd = this.wrd + 'K'; break;
+				case 11: this.wrd = this.wrd + 'L'; break;
+				case 12: this.wrd = this.wrd + 'M'; break;
+				case 13: this.wrd = this.wrd + 'N'; break;
+				case 14: this.wrd = this.wrd + 'O'; break;
+				case 15: this.wrd = this.wrd + 'P'; break;
+				case 16: this.wrd = this.wrd + 'Q'; break;
+				case 17: this.wrd = this.wrd + 'R'; break;
+				case 18: this.wrd = this.wrd + 'S'; break;
+				case 19: this.wrd = this.wrd + 'T'; break;
+				case 20: this.wrd = this.wrd + 'U'; break;
+				case 21: this.wrd = this.wrd + 'V'; break;
+				case 22: this.wrd = this.wrd + 'W'; break;
+				case 23: this.wrd = this.wrd + 'X'; break;
+				case 24: this.wrd = this.wrd + 'Y'; break;
+				case 25: this.wrd = this.wrd + 'Z'; break;
+
+			}
 
 
+			var letters = this.add.sprite(((ABC.GAME_WIDTH-(this.lengthOfWord*80))/2)+(ABC.counter*80), ABC.GAME_HEIGHT-170,'abcd1');
+			letters.frame = lettertype;
+
+			ABC.counter += 1 ;
 		}
 
-		ABC.counter += 80 ;
+		
 
 		if(this.wrd===this.givenWord)
 		{
