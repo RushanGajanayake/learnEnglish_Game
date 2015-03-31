@@ -29,6 +29,17 @@ ABC.Game = function(game)
 	this.shuffleLetter = [];
 	
 
+	ABC.candy1 = null;
+	ABC.candy2 = null;
+	ABC.candy3 = null;
+	ABC.candy4 = null;
+	ABC.candy5 = null;
+	ABC.no_of_candy1 = 0;
+	ABC.no_of_candy2 = 0;
+	ABC.no_of_candy3 = 0;
+	ABC.no_of_candy4 = 0;
+	ABC.no_of_candy5 = 0;
+
 };
 
 
@@ -44,6 +55,7 @@ ABC.Game.prototype = {
 
 
 		this.add.sprite(0,0,'background1');
+
 		this.add.sprite(675,30,'bonusMarks',0);
 		this.add.sprite(675,100,'bonusMarks',1);
 		this.add.sprite(675,170,'bonusMarks',2);
@@ -109,6 +121,13 @@ ABC.Game.prototype = {
     	ABC._scoreText = this.add.text(120, 20, "0", this.fontStyle);
     	ABC.timeing = this.add.text(270, 20, "0", this.fontStyle);
     	ABC.words = this.add.text(270, 300, "", this.fontStyle);
+
+    	ABC.candy1 = this.add.text(760, 45, "0", this.fontStyle);
+    	ABC.candy2 = this.add.text(760, 115, "0", this.fontStyle);
+    	ABC.candy3 = this.add.text(760, 185, "0", this.fontStyle);
+    	ABC.candy4 = this.add.text(760, 255, "0", this.fontStyle);
+    	ABC.candy5 = this.add.text(760, 325, "0", this.fontStyle);
+
 
     	this._ABCgroup = this.add.group();
     	this.spawnLetter(this);
@@ -269,14 +288,20 @@ ABC.Game.prototype = {
 		// alert(candytype);
 		switch(candytype)
 		{
-			case 0: ABC._score += 5; break;
-			case 1: ABC._score -= 2; break;
-			case 2: ABC._score += 2; break;
-			case 3: ABC._score += 10; break;
-			case 4: ABC._score += 5; break;
+			case 0: ABC._score += 5; ABC.no_of_candy1 += 1; break;
+			case 1: ABC._score -= 2; ABC.no_of_candy2 += 1; break;
+			case 2: ABC._score += 2; ABC.no_of_candy3 += 1; break;
+			case 3: ABC._score += 10; ABC.no_of_candy4 += 1; break;
+			case 4: ABC._score += 5; ABC.no_of_candy5 += 1; break;
 		}
 
 		ABC._scoreText.setText(ABC._score);
+
+		ABC.candy1.setText(ABC.no_of_candy1);
+		ABC.candy2.setText(ABC.no_of_candy2);
+		ABC.candy3.setText(ABC.no_of_candy3);
+		ABC.candy4.setText(ABC.no_of_candy4);
+		ABC.candy5.setText(ABC.no_of_candy5);
 
 	},
 
