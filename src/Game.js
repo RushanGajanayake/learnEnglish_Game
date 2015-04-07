@@ -54,8 +54,6 @@ ABC.Game.prototype = {
 		this.physics.arcade.gravity.y = 150;
 
 
-		this.add.sprite(0,0,'background1');
-
 		this.add.sprite(675,30,'bonusMarks',0);
 		this.add.sprite(675,100,'bonusMarks',1);
 		this.add.sprite(675,170,'bonusMarks',2);
@@ -66,6 +64,9 @@ ABC.Game.prototype = {
 		this.add.button(575,5,'button-play',this.managePause,this);
 
 		// this.add.sprite(0, ABC.GAME_HEIGHT-160, 'floor');
+
+
+
 
 		var splitword = this.givenWord.split("");
 		this.lengthOfWord = splitword.length;
@@ -167,8 +168,10 @@ ABC.Game.prototype = {
 
 		if (ABC._health==0)
 		{
-			ABC.words.setText("Game Over");
-			this.game.paused = true;
+			
+			// ABC.words.setText("Game Over");
+			this.game_finished(this);
+
 
 		}
 
@@ -285,8 +288,21 @@ ABC.Game.prototype = {
 
 		if(this.wrd===this.givenWord)
 		{
-			ABC.words.setText("You Win");
+			this.add.sprite(0,0,'background1');
+			this.add.text(300, 250, "You Win", this.fontStyle);
+			// ABC.words.setText("You Win");
+			this.add.sprite(0,0,'game_finish');
+			this.add.button(300,425,'next',this.nextlevel,this);
+			this.add.button(210,400,'menu',this.mainmenu,this);
+
+			// if(ABC.global.starsArray[ABC.global.level]==4){
+
+			// 	ABC.global.starsArray[ABC.global.level] = 0;
+			// 	// ABC.global.level = ABC.global.level+1;
+			// }
 			this.game.paused = true;
+
+			
 
 		}
 	},
@@ -331,7 +347,29 @@ ABC.Game.prototype = {
 	remover: function(item)
 	{
 		item.kill();
-	}
+	},
 
+	game_finished: function(game)
+	{
+			this.add.sprite(0,0,'background1');
+			this.add.text(300, 250, "Game Over", this.fontStyle);
+			this.add.sprite(0,0,'game_finish');
+			this.add.button(210,400,'menu',this.mainmenu,this);
+			this.add.button(300,425,'next',this.nextlevel,this);
+	},
+
+	mainmenu: function(game)
+	{
+
+		this.game.paused = true;
+		// this.game.state.start('LevelSelect');
+		
+	},
+
+	nextlevel: function()
+	{
+
+		this.game.paused = true;
+	}
 };
 
