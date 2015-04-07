@@ -15,7 +15,7 @@ ABC.MainMenu.prototype = {
 
 	startGame: function()
 	{
-		this.state.start('Word');
+		this.state.start('LevelSelect');
 	}
 
 };

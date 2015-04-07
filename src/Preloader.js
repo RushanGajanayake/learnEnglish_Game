@@ -24,6 +24,8 @@ ABC.Preloader.prototype = {
                 this.load.spritesheet('button-ok', 'assets/images/ok.png', 150, 50);
                 this.load.spritesheet('abcd', 'assets/images/alphabet.png', 100, 100);
                 this.load.spritesheet('abcd1', 'assets/images/alphabet_letters1.png', 100, 100);
+                this.load.spritesheet('levels', 'assets/images/levels.png', 64, 64);
+                this.load.spritesheet('level_arrows', 'assets/images/level_arrows.png', 48, 48);
 	},
 
 	create: function()
