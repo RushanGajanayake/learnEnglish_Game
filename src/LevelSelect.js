@@ -3,8 +3,8 @@ ABC.LevelSelect = function(game)
 	this.pages;
 	this.levelThumbsGroups;
 	this.currentpage;
-	this.leftArrow;
-	this.rightArrow;
+	this.previousPage;
+	this.nextPage;
 
 };
 
@@ -20,6 +20,15 @@ ABC.LevelSelect.prototype = {
 		{
 			this.currentpage = this.pages-1;
 		}
+
+		this.previousPage = this.add.button(100,550,"level_arrows",this.arrowclicked,this);
+		this.previousPage.anchor.setTo(0.5);
+		this.previousPage.frame = 0;
+
+		this.nextPage = this.add.button(700,550,"level_arrows",this.arrowclicked,this);
+		this.nextPage.anchor.setTo(0.5);
+		this.nextPage.frame = 1;
+
 
 
 		this.levelThumbsGroups = this.add.group();
