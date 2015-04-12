@@ -19,6 +19,7 @@ ABC.Preloader.prototype = {
                 this.load.image('start', 'assets/images/ABC_click.png');
                 this.load.image('next', 'assets/images/nxt.png');
                 this.load.image('menu', 'assets/images/mnu.png');
+                this.load.image('reload', 'assets/images/reload.png');
                 this.load.image('game_finish', 'assets/images/game_finish.png');
 
                 this.load.spritesheet('bonus', 'assets/images/bonusCandy.png', 100, 100);

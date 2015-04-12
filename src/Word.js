@@ -1,9 +1,31 @@
+var levelWord = {};
+
+levelWord.global = {
+
+	word : ['CAT',
+			'ANT',
+			'BAT',
+			'RAT',
+			'NEWS',
+			'BIRD',
+			'BABY',
+			'FOOD',
+			'STEAM',
+			'GREEN',
+			'APPLE',
+			'LEADS',
+			'HAPPY',
+			'POINT',
+			'HAMMER',
+			'CAMERA',
+			'PRESENT',
+			'THUNDER',
+			'POLITICAL']
+
+};
+
 ABC.Word = function(game)
 {
-
-	this.givenWord = 'APPLE';
-
-	ABC.showWord = null;
 };
 
 ABC.Word.prototype = {
@@ -18,7 +40,7 @@ ABC.Word.prototype = {
 		this.fontStyle = { font: "40px Arial", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
 		this.fontStyle1 = { font: "20px Arial", fill: "#FFCC00", stroke: "#333", strokeThickness: 1, align: "center" };
 		this.add.text(330, 200, "Your word is :", this.fontStyle1);
-		this.add.text(325, 250, this.givenWord, this.fontStyle);
+		this.add.text(325, 250, levelWord.global.word[ABC.global.level-1], this.fontStyle);
 	},
 
 	startGame: function()

@@ -18,7 +18,7 @@ ABC.Game = function(game)
 
 	ABC.words= null;
 	this.wrd = '';
-	this.givenWord = 'APPLE';
+	this.givenWord = null;
 	this.lengthOfWord = 0;
 	this.lengthOfArray = 0;
 
@@ -64,6 +64,8 @@ ABC.Game.prototype = {
 		this.add.button(575,5,'button-play',this.managePause,this);
 
 		// this.add.sprite(0, ABC.GAME_HEIGHT-160, 'floor');
+		// alert(levelWord.global.word);
+		this.givenWord = levelWord.global.word[ABC.global.level-1] ;
 
 
 
@@ -286,23 +288,37 @@ ABC.Game.prototype = {
 
 		
 
-		if(this.wrd===this.givenWord)
+		if(this.wrd==this.givenWord)
 		{
+
 			this.add.sprite(0,0,'background1');
 			this.add.text(300, 250, "You Win", this.fontStyle);
-			// ABC.words.setText("You Win");
 			this.add.sprite(0,0,'game_finish');
-			this.add.button(300,425,'next',this.nextlevel,this);
-			this.add.button(210,400,'menu',this.mainmenu,this);
 
-			// if(ABC.global.starsArray[ABC.global.level]==4){
 
-			// 	ABC.global.starsArray[ABC.global.level] = 0;
-			// 	// ABC.global.level = ABC.global.level+1;
-			// }
-			this.game.paused = true;
+			ABC.no_of_candy1 = 0;
+			ABC.no_of_candy2 = 0;
+			ABC.no_of_candy3 = 0;
+			ABC.no_of_candy4 = 0;
+			ABC.no_of_candy5 = 0;
 
-			
+			this.spawnTimer = 0;
+			this.bonusTimer = 0;
+
+			this.letterPos = [];
+			// this.shuffleLetter = [];
+			this.wrd = '';
+
+			this.lengthOfWord = 0;
+			this.lengthOfArray = 0;
+
+			ABC.counter = 0;
+			ABC.sec = 0;
+
+			ABC.global.starsArray[ABC.global.level] = 0;
+
+			this.add.button(210,400,'menu',this.mainmenu);
+			this.add.button(300,425,'next',this.nextlevel);
 
 		}
 	},
@@ -354,22 +370,47 @@ ABC.Game.prototype = {
 			this.add.sprite(0,0,'background1');
 			this.add.text(300, 250, "Game Over", this.fontStyle);
 			this.add.sprite(0,0,'game_finish');
+
+			ABC.no_of_candy1 = 0;
+			ABC.no_of_candy2 = 0;
+			ABC.no_of_candy3 = 0;
+			ABC.no_of_candy4 = 0;
+			ABC.no_of_candy5 = 0;
+
+			this.spawnTimer = 0;
+			this.bonusTimer = 0;
+
+			this.letterPos = [];
+			this.shuffleLetter = [];
+			this.wrd = '';
+
+			this.lengthOfWord = 0;
+			this.lengthOfArray = 0;
+
+			ABC.counter = 0;
+			ABC.sec = 0;
+
+
 			this.add.button(210,400,'menu',this.mainmenu,this);
-			this.add.button(300,425,'next',this.nextlevel,this);
+			this.add.button(300,425,'reload',this.restart,this);
+
 	},
 
 	mainmenu: function(game)
 	{
 
-		this.game.paused = true;
-		// this.game.state.start('LevelSelect');
+		this.game.state.start('LevelSelect');
 		
 	},
 
 	nextlevel: function()
 	{
+		alert("xxxxx");
 
-		this.game.paused = true;
+	},
+	restart: function()
+	{
+		this.game.state.start('Word');
 	}
 };
 
