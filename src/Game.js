@@ -21,6 +21,7 @@ ABC.Game = function(game)
 	this.givenWord = null;
 	this.lengthOfWord = 0;
 	this.lengthOfArray = 0;
+	this.t = 0;
 
 	ABC.counter = 0;
 
@@ -120,9 +121,13 @@ ABC.Game.prototype = {
 
 
 		this.fontStyle = { font: "40px Arial", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
+		this.fontStyle2 =  { font: "30px Arial", fill: "#FFFFFF", stroke: "#95B3FF", strokeThickness: 4, align: "center" };
+		this.fontStyle3 =  { font: "40px Arial", fill: "#613302", stroke: "#c87b02", strokeThickness: 5, align: "center" };
 
-    	ABC._scoreText = this.add.text(120, 20, "0", this.fontStyle);
-    	ABC.timeing = this.add.text(270, 20, "0", this.fontStyle);
+		this.add.text(50,15,"Score :",this.fontStyle2);
+		this.add.text(290,15,"Time :", this.fontStyle2);
+    	ABC._scoreText = this.add.text(160, 15, "0", this.fontStyle2);
+    	ABC.timeing = this.add.text(385, 15, "0", this.fontStyle2);
     	ABC.words = this.add.text(270, 300, "", this.fontStyle);
 
     	ABC.candy1 = this.add.text(760, 45, "0", this.fontStyle);
@@ -139,7 +144,7 @@ ABC.Game.prototype = {
 	managePause: function()
 	{
 		this.game.paused = true;
-    	var pausedText = this.add.text(100, 250, "Game paused.\nTap anywhere to continue.", this.fontStyle);
+    	var pausedText = this.add.text(170, 250, "Game Paused\nTap anywhere to continue", this.fontStyle);
     	this.input.onDown.add(function(){
         	pausedText.destroy();
         	this.game.paused = false;
@@ -172,7 +177,10 @@ ABC.Game.prototype = {
 		{
 			
 			// ABC.words.setText("Game Over");
+			this.t = ABC.sec;
 			this.game_finished(this);
+
+
 
 
 		}
@@ -291,9 +299,9 @@ ABC.Game.prototype = {
 		if(this.wrd==this.givenWord)
 		{
 
-			this.add.sprite(0,0,'background1');
-			this.add.text(300, 250, "You Win", this.fontStyle);
+			// this.add.sprite(0,0,'background1');
 			this.add.sprite(0,0,'game_finish');
+			this.add.text(330, 310, "You Win", this.fontStyle3);
 
 
 			ABC.no_of_candy1 = 0;
@@ -314,11 +322,13 @@ ABC.Game.prototype = {
 
 			ABC.counter = 0;
 			ABC.sec = 0;
+			ABC._score = 0;
 
 			ABC.global.starsArray[ABC.global.level] = 0;
+			ABC.global.level += 1;
 
-			this.add.button(210,400,'menu',this.mainmenu);
-			this.add.button(300,425,'next',this.nextlevel);
+			this.add.button(310,405,'menu',this.mainmenu);
+			this.add.button(400,415,'next',this.nextlevel);
 
 		}
 	},
@@ -330,9 +340,9 @@ ABC.Game.prototype = {
 		switch(candytype)
 		{
 			case 0: ABC._score += 5; ABC.no_of_candy1 += 1; break;
-			case 1: ABC._score -= 2; ABC.no_of_candy2 += 1; break;
+			case 1: ABC._score += 3; ABC.no_of_candy2 += 1; break;
 			case 2: ABC._score += 2; ABC.no_of_candy3 += 1; break;
-			case 3: ABC._score += 10; ABC.no_of_candy4 += 1; break;
+			case 3: ABC._score += 1; ABC.no_of_candy4 += 1; break;
 			case 4: ABC._score += 5; ABC.no_of_candy5 += 1; break;
 		}
 
@@ -367,9 +377,13 @@ ABC.Game.prototype = {
 
 	game_finished: function(game)
 	{
-			this.add.sprite(0,0,'background1');
-			this.add.text(300, 250, "Game Over", this.fontStyle);
+			// this.add.sprite(0,0,'background1');
 			this.add.sprite(0,0,'game_finish');
+			this.add.text(310, 310, "Game Over", this.fontStyle3);
+			
+			this.add.text(460,173,ABC._score,this.fontStyle);
+			this.add.text(460,223,this.t,this.fontStyle);
+
 
 			ABC.no_of_candy1 = 0;
 			ABC.no_of_candy2 = 0;
@@ -389,10 +403,11 @@ ABC.Game.prototype = {
 
 			ABC.counter = 0;
 			ABC.sec = 0;
+			ABC._score = 0;
 
 
-			this.add.button(210,400,'menu',this.mainmenu,this);
-			this.add.button(300,425,'reload',this.restart,this);
+			this.add.button(310,405,'menu',this.mainmenu,this);
+			this.add.button(400,415,'reload',this.restart,this);
 
 	},
 
@@ -405,7 +420,7 @@ ABC.Game.prototype = {
 
 	nextlevel: function()
 	{
-		alert("xxxxx");
+		this.game.state.start('Word');
 
 	},
 	restart: function()
