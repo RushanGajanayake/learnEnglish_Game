@@ -167,7 +167,7 @@ ABC.Game.prototype = {
 			ABC.timeing.setText(ABC.sec);
 		}
 
-		if(this.bonusTimer > 5175)
+		if(this.bonusTimer > 3175)
 		{
 			this.bonusTimer = 0;
 			this.spawnBonus(this);
@@ -292,16 +292,20 @@ ABC.Game.prototype = {
 			letters.frame = lettertype;
 
 			ABC.counter += 1 ;
+
+			ABC.words.setText("");
 		}
 
 		
 
 		if(this.wrd==this.givenWord)
 		{
+		
 
 			// this.add.sprite(0,0,'background1');
 			this.add.sprite(0,0,'game_finish');
 			this.add.text(330, 310, "You Win", this.fontStyle3);
+			
 
 
 			ABC.no_of_candy1 = 0;
@@ -354,20 +358,22 @@ ABC.Game.prototype = {
 		ABC.candy4.setText(ABC.no_of_candy4);
 		ABC.candy5.setText(ABC.no_of_candy5);
 
+		ABC.words.setText("");
+
 	},
 
 	shuffle: function(game)
 	{
 		this.shuffleLetter = this.shuffleLetter.concat(this.letterPos);
 
-		for (var i = 0; i < this.letterPos.length; i++) {
+		for (var i = 0; i < this.letterPos.length - 1; i++) {
 				var extraWord = Math.floor(Math.random()*26);
 				this.shuffleLetter.push(extraWord);
 		};
 
 		for(var j, x, i = this.shuffleLetter.length; i; j = Math.floor(Math.random() * i), x = this.shuffleLetter[--i], this.shuffleLetter[i] = this.shuffleLetter[j], this.shuffleLetter[j] = x);
 
-		// alert(this.shuffleLetter);
+		 // alert(this.shuffleLetter);
 	},
 
 	remover: function(item)
